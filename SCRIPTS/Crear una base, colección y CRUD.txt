@@ -1,0 +1,137 @@
+--Crear una base
+use AdventureWorksNoSQL
+--Operaciones CRUD
+--CREATE
+--Crear una colección
+db.productos.insertMany([
+  {
+    productKey: 210,
+    nombre: "HL Road Frame - Black, 58",
+    productoTerminado: true,
+    estado: "Current",
+    subcategoria: "Road Frames",
+    categoria: "Components"
+  },
+  {
+    productKey: 211,
+    nombre: "HL Road Frame - Red, 58",
+    productoTerminado: true,
+    estado: "Current",
+    subcategoria: "Road Frames",
+    categoria: "Components"
+  },
+  {
+    productKey: 212,
+    nombre: "Sport-100 Helmet, Red",
+    costoEstandar: 12.0278,
+    precioLista: 33.6442,
+    productoTerminado: true,
+    subcategoria: "Helmets",
+    categoria: "Accessories"
+  },
+  {
+    productKey: 213,
+    nombre: "Sport-100 Helmet, Red",
+    costoEstandar: 13.8782,
+    precioLista: 33.6442,
+    productoTerminado: true,
+    subcategoria: "Helmets",
+    categoria: "Accessories"
+  },
+  {
+    productKey: 214,
+    nombre: "Sport-100 Helmet, Red",
+    costoEstandar: 13.0863,
+    precioLista: 34.9900,
+    productoTerminado: true,
+    estado: "Current",
+    subcategoria: "Helmets",
+    categoria: "Accessories"
+  },
+  {
+    productKey: 215,
+    nombre: "Sport-100 Helmet, Black",
+    costoEstandar: 12.0278,
+    precioLista: 33.6442,
+    productoTerminado: true,
+    subcategoria: "Helmets",
+    categoria: "Accessories"
+  },
+  {
+    productKey: 216,
+    nombre: "Sport-100 Helmet, Black",
+    costoEstandar: 13.8782,
+    precioLista: 33.6442,
+    productoTerminado: true,
+    subcategoria: "Helmets",
+    categoria: "Accessories"
+  },
+  {
+    productKey: 217,
+    nombre: "Sport-100 Helmet, Black",
+    costoEstandar: 13.0863,
+    precioLista: 34.9900,
+    productoTerminado: true,
+    estado: "Current",
+    subcategoria: "Helmets",
+    categoria: "Accessories"
+  },
+  {
+    productKey: 218,
+    nombre: "Mountain Bike Socks, M",
+    costoEstandar: 3.3963,
+    precioLista: 9.5000,
+    productoTerminado: true,
+    subcategoria: "Socks",
+    categoria: "Clothing"
+  },
+  {
+    productKey: 219,
+    nombre: "Mountain Bike Socks, L",
+    costoEstandar: 3.3963,
+    precioLista: 9.5000,
+    productoTerminado: true,
+    subcategoria: "Socks",
+    categoria: "Clothing"
+  }
+])
+--Comprobamos la carga
+db.productos.countDocuments()
+--Comprobar documentos cargados
+db.productos.find().pretty()
+--READ
+--Buscar por un atributo de categoría
+db.productos.find(
+    { categoria: "Accessories" }
+).pretty()
+--Busqueda por dos criterios
+db.productos.find(
+    {
+        categoria: "Accessories",
+        productoTerminado: true
+    }
+).pretty()
+--UPDATE
+--Modificamos temporalmente el producto 214
+db.productos.updateOne(
+    { productKey: 214 },
+    {
+        $set: {
+            precioLista: 39.99,
+            estado: "Updated-PC4"
+        }
+    }
+)
+--Comprobación del cambio
+db.productos.find(
+    { productKey: 214 }
+).pretty()
+--DELETE
+--Eliminar solo el producto de prueba 214
+db.productos.deleteOne(
+    { productKey: 214 }
+)
+--Compruebo que ya no existe
+db.productos.find(
+    { productKey: 214 }
+).pretty()
