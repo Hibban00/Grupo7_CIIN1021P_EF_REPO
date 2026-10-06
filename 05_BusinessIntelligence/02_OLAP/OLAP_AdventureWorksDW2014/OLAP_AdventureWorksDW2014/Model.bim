@@ -1,0 +1,812 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1700,
+  "model": {
+    "culture": "es-PE",
+    "dataSources": [
+      {
+        "type": "structured",
+        "name": "SQL/DESKTOP-LOUTN8G;AdventureWorksDW_PC5",
+        "connectionDetails": {
+          "protocol": "tds",
+          "address": {
+            "server": "DESKTOP-LOUTN8G",
+            "database": "AdventureWorksDW_PC5"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "credential": {
+          "AuthenticationKind": "ServiceAccount",
+          "kind": "SQL",
+          "path": "desktop-loutn8g;AdventureWorksDW_PC5",
+          "EncryptConnection": false
+        }
+      }
+    ],
+    "tables": [
+      {
+        "name": "DimCliente",
+        "columns": [
+          {
+            "name": "ClienteDWKey",
+            "dataType": "int64",
+            "sourceColumn": "ClienteDWKey"
+          },
+          {
+            "name": "ClienteKey",
+            "dataType": "int64",
+            "sourceColumn": "ClienteKey"
+          },
+          {
+            "name": "CodigoCliente",
+            "dataType": "string",
+            "sourceColumn": "CodigoCliente"
+          },
+          {
+            "name": "Tratamiento",
+            "dataType": "string",
+            "sourceColumn": "Tratamiento"
+          },
+          {
+            "name": "Nombre",
+            "dataType": "string",
+            "sourceColumn": "Nombre"
+          },
+          {
+            "name": "SegundoNombre",
+            "dataType": "string",
+            "sourceColumn": "SegundoNombre"
+          },
+          {
+            "name": "Apellido",
+            "dataType": "string",
+            "sourceColumn": "Apellido"
+          },
+          {
+            "name": "FechaNacimiento",
+            "dataType": "dateTime",
+            "sourceColumn": "FechaNacimiento"
+          },
+          {
+            "name": "EstadoCivil",
+            "dataType": "string",
+            "sourceColumn": "EstadoCivil"
+          },
+          {
+            "name": "Sufijo",
+            "dataType": "string",
+            "sourceColumn": "Sufijo"
+          },
+          {
+            "name": "Genero",
+            "dataType": "string",
+            "sourceColumn": "Genero"
+          },
+          {
+            "name": "CorreoElectronico",
+            "dataType": "string",
+            "sourceColumn": "CorreoElectronico"
+          },
+          {
+            "name": "IngresoAnual",
+            "dataType": "double",
+            "sourceColumn": "IngresoAnual"
+          },
+          {
+            "name": "TotalHijos",
+            "dataType": "int64",
+            "sourceColumn": "TotalHijos"
+          },
+          {
+            "name": "HijosEnCasa",
+            "dataType": "int64",
+            "sourceColumn": "HijosEnCasa"
+          },
+          {
+            "name": "Educacion",
+            "dataType": "string",
+            "sourceColumn": "Educacion"
+          },
+          {
+            "name": "Ocupacion",
+            "dataType": "string",
+            "sourceColumn": "Ocupacion"
+          },
+          {
+            "name": "PropietarioVivienda",
+            "dataType": "string",
+            "sourceColumn": "PropietarioVivienda"
+          },
+          {
+            "name": "CantidadVehiculos",
+            "dataType": "int64",
+            "sourceColumn": "CantidadVehiculos"
+          },
+          {
+            "name": "FechaPrimeraCompra",
+            "dataType": "dateTime",
+            "sourceColumn": "FechaPrimeraCompra"
+          },
+          {
+            "name": "DistanciaTraslado",
+            "dataType": "string",
+            "sourceColumn": "DistanciaTraslado"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/DESKTOP-LOUTN8G;AdventureWorksDW_PC5\",",
+                "    dbo_DimCliente = Source{[Schema=\"dbo\",Item=\"DimCliente\"]}[Data]",
+                "in",
+                "    dbo_DimCliente"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Total Clientes",
+            "expression": "DISTINCTCOUNT([ClienteDWKey])"
+          },
+          {
+            "name": "Porcentaje de clientes por Sexo",
+            "expression": "DIVIDE([Total Clientes],CALCULATE([Total Clientes],ALL(DimCliente[Genero])))"
+          },
+          {
+            "name": "Mujeres",
+            "expression": "CALCULATE([Total Clientes],DimCliente[Genero] = \"F\")"
+          },
+          {
+            "name": "Varones",
+            "expression": "CALCULATE([Total Clientes],DimCliente[Genero] = \"M\")"
+          },
+          {
+            "name": "% Mujeres",
+            "expression": "DIVIDE([Mujeres],[Total Clientes])"
+          },
+          {
+            "name": "% Varones",
+            "expression": "DIVIDE([Varones],[Total Clientes])"
+          }
+        ]
+      },
+      {
+        "name": "DimFecha",
+        "columns": [
+          {
+            "name": "FechaKey",
+            "dataType": "int64",
+            "sourceColumn": "FechaKey"
+          },
+          {
+            "name": "Fecha",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha"
+          },
+          {
+            "name": "NumeroDiaSemana",
+            "dataType": "int64",
+            "sourceColumn": "NumeroDiaSemana"
+          },
+          {
+            "name": "NombreDiaSemana",
+            "dataType": "string",
+            "sourceColumn": "NombreDiaSemana"
+          },
+          {
+            "name": "NumeroDiaMes",
+            "dataType": "int64",
+            "sourceColumn": "NumeroDiaMes"
+          },
+          {
+            "name": "NumeroDiaAnio",
+            "dataType": "int64",
+            "sourceColumn": "NumeroDiaAnio"
+          },
+          {
+            "name": "NumeroSemanaAnio",
+            "dataType": "int64",
+            "sourceColumn": "NumeroSemanaAnio"
+          },
+          {
+            "name": "NombreMes",
+            "dataType": "string",
+            "sourceColumn": "NombreMes",
+            "sortByColumn": "NumeroMes"
+          },
+          {
+            "name": "NumeroMes",
+            "dataType": "int64",
+            "sourceColumn": "NumeroMes"
+          },
+          {
+            "name": "Trimestre",
+            "dataType": "int64",
+            "sourceColumn": "Trimestre"
+          },
+          {
+            "name": "Anio",
+            "dataType": "int64",
+            "sourceColumn": "Anio"
+          },
+          {
+            "name": "Semestre",
+            "dataType": "int64",
+            "sourceColumn": "Semestre"
+          },
+          {
+            "name": "TrimestreFiscal",
+            "dataType": "int64",
+            "sourceColumn": "TrimestreFiscal"
+          },
+          {
+            "name": "AnioFiscal",
+            "dataType": "int64",
+            "sourceColumn": "AnioFiscal"
+          },
+          {
+            "name": "SemestreFiscal",
+            "dataType": "int64",
+            "sourceColumn": "SemestreFiscal"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/DESKTOP-LOUTN8G;AdventureWorksDW_PC5\",",
+                "    dbo_DimFecha = Source{[Schema=\"dbo\",Item=\"DimFecha\"]}[Data]",
+                "in",
+                "    dbo_DimFecha"
+              ]
+            }
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Jerarquía Fecha",
+            "levels": [
+              {
+                "name": "NombreMes",
+                "ordinal": 1,
+                "column": "NombreMes"
+              },
+              {
+                "name": "Fecha",
+                "ordinal": 2,
+                "column": "Fecha"
+              },
+              {
+                "name": "Anio",
+                "ordinal": 0,
+                "column": "Anio"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DimMoneda",
+        "columns": [
+          {
+            "name": "MonedaDWKey",
+            "dataType": "int64",
+            "sourceColumn": "MonedaDWKey"
+          },
+          {
+            "name": "MonedaKey",
+            "dataType": "int64",
+            "sourceColumn": "MonedaKey"
+          },
+          {
+            "name": "CodigoMoneda",
+            "dataType": "string",
+            "sourceColumn": "CodigoMoneda"
+          },
+          {
+            "name": "NombreMoneda",
+            "dataType": "string",
+            "sourceColumn": "NombreMoneda"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/DESKTOP-LOUTN8G;AdventureWorksDW_PC5\",",
+                "    dbo_DimMoneda = Source{[Schema=\"dbo\",Item=\"DimMoneda\"]}[Data]",
+                "in",
+                "    dbo_DimMoneda"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimProducto",
+        "columns": [
+          {
+            "name": "ProductoDWKey",
+            "dataType": "int64",
+            "sourceColumn": "ProductoDWKey"
+          },
+          {
+            "name": "ProductoKey",
+            "dataType": "int64",
+            "sourceColumn": "ProductoKey"
+          },
+          {
+            "name": "CodigoProducto",
+            "dataType": "string",
+            "sourceColumn": "CodigoProducto"
+          },
+          {
+            "name": "NombreProducto",
+            "dataType": "string",
+            "sourceColumn": "NombreProducto"
+          },
+          {
+            "name": "CostoEstandar",
+            "dataType": "double",
+            "sourceColumn": "CostoEstandar"
+          },
+          {
+            "name": "ProductoTerminado",
+            "dataType": "boolean",
+            "sourceColumn": "ProductoTerminado"
+          },
+          {
+            "name": "Color",
+            "dataType": "string",
+            "sourceColumn": "Color"
+          },
+          {
+            "name": "NivelStockSeguridad",
+            "dataType": "int64",
+            "sourceColumn": "NivelStockSeguridad"
+          },
+          {
+            "name": "PuntoReorden",
+            "dataType": "int64",
+            "sourceColumn": "PuntoReorden"
+          },
+          {
+            "name": "PrecioLista",
+            "dataType": "double",
+            "sourceColumn": "PrecioLista"
+          },
+          {
+            "name": "Talla",
+            "dataType": "string",
+            "sourceColumn": "Talla"
+          },
+          {
+            "name": "RangoTalla",
+            "dataType": "string",
+            "sourceColumn": "RangoTalla"
+          },
+          {
+            "name": "Peso",
+            "dataType": "double",
+            "sourceColumn": "Peso"
+          },
+          {
+            "name": "DiasFabricacion",
+            "dataType": "int64",
+            "sourceColumn": "DiasFabricacion"
+          },
+          {
+            "name": "LineaProducto",
+            "dataType": "string",
+            "sourceColumn": "LineaProducto"
+          },
+          {
+            "name": "PrecioDistribuidor",
+            "dataType": "double",
+            "sourceColumn": "PrecioDistribuidor"
+          },
+          {
+            "name": "Clase",
+            "dataType": "string",
+            "sourceColumn": "Clase"
+          },
+          {
+            "name": "Estilo",
+            "dataType": "string",
+            "sourceColumn": "Estilo"
+          },
+          {
+            "name": "Modelo",
+            "dataType": "string",
+            "sourceColumn": "Modelo"
+          },
+          {
+            "name": "FechaInicio",
+            "dataType": "dateTime",
+            "sourceColumn": "FechaInicio"
+          },
+          {
+            "name": "FechaFin",
+            "dataType": "dateTime",
+            "sourceColumn": "FechaFin"
+          },
+          {
+            "name": "Estado",
+            "dataType": "string",
+            "sourceColumn": "Estado"
+          },
+          {
+            "name": "Subcategoria",
+            "dataType": "string",
+            "sourceColumn": "Subcategoria"
+          },
+          {
+            "name": "Categoria",
+            "dataType": "string",
+            "sourceColumn": "Categoria"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/DESKTOP-LOUTN8G;AdventureWorksDW_PC5\",",
+                "    dbo_DimProducto = Source{[Schema=\"dbo\",Item=\"DimProducto\"]}[Data]",
+                "in",
+                "    dbo_DimProducto"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimPromocion",
+        "columns": [
+          {
+            "name": "PromocionDWKey",
+            "dataType": "int64",
+            "sourceColumn": "PromocionDWKey"
+          },
+          {
+            "name": "PromocionKey",
+            "dataType": "int64",
+            "sourceColumn": "PromocionKey"
+          },
+          {
+            "name": "CodigoPromocion",
+            "dataType": "int64",
+            "sourceColumn": "CodigoPromocion"
+          },
+          {
+            "name": "NombrePromocion",
+            "dataType": "string",
+            "sourceColumn": "NombrePromocion"
+          },
+          {
+            "name": "PorcentajeDescuento",
+            "dataType": "double",
+            "sourceColumn": "PorcentajeDescuento"
+          },
+          {
+            "name": "TipoPromocion",
+            "dataType": "string",
+            "sourceColumn": "TipoPromocion"
+          },
+          {
+            "name": "CategoriaPromocion",
+            "dataType": "string",
+            "sourceColumn": "CategoriaPromocion"
+          },
+          {
+            "name": "FechaInicio",
+            "dataType": "dateTime",
+            "sourceColumn": "FechaInicio"
+          },
+          {
+            "name": "FechaFin",
+            "dataType": "dateTime",
+            "sourceColumn": "FechaFin"
+          },
+          {
+            "name": "CantidadMinima",
+            "dataType": "int64",
+            "sourceColumn": "CantidadMinima"
+          },
+          {
+            "name": "CantidadMaxima",
+            "dataType": "int64",
+            "sourceColumn": "CantidadMaxima"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/DESKTOP-LOUTN8G;AdventureWorksDW_PC5\",",
+                "    dbo_DimPromocion = Source{[Schema=\"dbo\",Item=\"DimPromocion\"]}[Data]",
+                "in",
+                "    dbo_DimPromocion"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimTerritorio",
+        "columns": [
+          {
+            "name": "TerritorioDWKey",
+            "dataType": "int64",
+            "sourceColumn": "TerritorioDWKey"
+          },
+          {
+            "name": "TerritorioKey",
+            "dataType": "int64",
+            "sourceColumn": "TerritorioKey"
+          },
+          {
+            "name": "CodigoTerritorio",
+            "dataType": "int64",
+            "sourceColumn": "CodigoTerritorio"
+          },
+          {
+            "name": "Region",
+            "dataType": "string",
+            "sourceColumn": "Region"
+          },
+          {
+            "name": "Pais",
+            "dataType": "string",
+            "sourceColumn": "Pais"
+          },
+          {
+            "name": "GrupoTerritorio",
+            "dataType": "string",
+            "sourceColumn": "GrupoTerritorio"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/DESKTOP-LOUTN8G;AdventureWorksDW_PC5\",",
+                "    dbo_DimTerritorio = Source{[Schema=\"dbo\",Item=\"DimTerritorio\"]}[Data]",
+                "in",
+                "    dbo_DimTerritorio"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactVentas",
+        "columns": [
+          {
+            "name": "VentaKey",
+            "dataType": "int64",
+            "sourceColumn": "VentaKey"
+          },
+          {
+            "name": "FechaKey",
+            "dataType": "int64",
+            "sourceColumn": "FechaKey"
+          },
+          {
+            "name": "ClienteDWKey",
+            "dataType": "int64",
+            "sourceColumn": "ClienteDWKey"
+          },
+          {
+            "name": "ProductoDWKey",
+            "dataType": "int64",
+            "sourceColumn": "ProductoDWKey"
+          },
+          {
+            "name": "TerritorioDWKey",
+            "dataType": "int64",
+            "sourceColumn": "TerritorioDWKey"
+          },
+          {
+            "name": "PromocionDWKey",
+            "dataType": "int64",
+            "sourceColumn": "PromocionDWKey"
+          },
+          {
+            "name": "MonedaDWKey",
+            "dataType": "int64",
+            "sourceColumn": "MonedaDWKey"
+          },
+          {
+            "name": "NumeroPedido",
+            "dataType": "string",
+            "sourceColumn": "NumeroPedido"
+          },
+          {
+            "name": "NumeroLinea",
+            "dataType": "int64",
+            "sourceColumn": "NumeroLinea"
+          },
+          {
+            "name": "NumeroRevision",
+            "dataType": "int64",
+            "sourceColumn": "NumeroRevision"
+          },
+          {
+            "name": "Cantidad",
+            "dataType": "int64",
+            "sourceColumn": "Cantidad"
+          },
+          {
+            "name": "PrecioUnitario",
+            "dataType": "double",
+            "sourceColumn": "PrecioUnitario"
+          },
+          {
+            "name": "ImporteExtendido",
+            "dataType": "double",
+            "sourceColumn": "ImporteExtendido"
+          },
+          {
+            "name": "PorcentajeDescuento",
+            "dataType": "double",
+            "sourceColumn": "PorcentajeDescuento"
+          },
+          {
+            "name": "ImporteDescuento",
+            "dataType": "double",
+            "sourceColumn": "ImporteDescuento"
+          },
+          {
+            "name": "CostoEstandarProducto",
+            "dataType": "double",
+            "sourceColumn": "CostoEstandarProducto"
+          },
+          {
+            "name": "CostoTotalProducto",
+            "dataType": "double",
+            "sourceColumn": "CostoTotalProducto"
+          },
+          {
+            "name": "ImporteVenta",
+            "dataType": "double",
+            "sourceColumn": "ImporteVenta"
+          },
+          {
+            "name": "Impuesto",
+            "dataType": "double",
+            "sourceColumn": "Impuesto"
+          },
+          {
+            "name": "Flete",
+            "dataType": "double",
+            "sourceColumn": "Flete"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/DESKTOP-LOUTN8G;AdventureWorksDW_PC5\",",
+                "    dbo_FactVentas = Source{[Schema=\"dbo\",Item=\"FactVentas\"]}[Data]",
+                "in",
+                "    dbo_FactVentas"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Ventas Totales",
+            "expression": " SUM(FactVentas[ImporteVenta])"
+          },
+          {
+            "name": "Costo Total",
+            "expression": " SUM(FactVentas[CostoTotalProducto])"
+          },
+          {
+            "name": "Cantidad Vendida",
+            "expression": " SUM(FactVentas[Cantidad])"
+          },
+          {
+            "name": "Descuento Total",
+            "expression": " SUM(FactVentas[ImporteDescuento])"
+          },
+          {
+            "name": "Impuesto Total",
+            "expression": " SUM(FactVentas[Impuesto])"
+          },
+          {
+            "name": "Flete Total",
+            "expression": " SUM(FactVentas[Flete])"
+          },
+          {
+            "name": "Margen Bruto",
+            "expression": " [Ventas Totales] - [Costo Total]"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "80377c37-321c-4f72-91bc-90b3730e896a",
+        "fromTable": "FactVentas",
+        "fromColumn": "ClienteDWKey",
+        "toTable": "DimCliente",
+        "toColumn": "ClienteDWKey"
+      },
+      {
+        "name": "5064555e-3fe5-4e65-9b3b-05b536a4094d",
+        "fromTable": "FactVentas",
+        "fromColumn": "FechaKey",
+        "toTable": "DimFecha",
+        "toColumn": "FechaKey"
+      },
+      {
+        "name": "f3bb7d5b-c1a2-42da-8b34-8cc33fcb7114",
+        "fromTable": "FactVentas",
+        "fromColumn": "MonedaDWKey",
+        "toTable": "DimMoneda",
+        "toColumn": "MonedaDWKey"
+      },
+      {
+        "name": "4bc90a23-e7ec-4a8b-9130-af59df2a6200",
+        "fromTable": "FactVentas",
+        "fromColumn": "ProductoDWKey",
+        "toTable": "DimProducto",
+        "toColumn": "ProductoDWKey"
+      },
+      {
+        "name": "9e9c2262-d7b2-4184-a786-bd4964b5670e",
+        "fromTable": "FactVentas",
+        "fromColumn": "PromocionDWKey",
+        "toTable": "DimPromocion",
+        "toColumn": "PromocionDWKey"
+      },
+      {
+        "name": "d1725d44-524a-4f15-87c8-23c8738e3817",
+        "fromTable": "FactVentas",
+        "fromColumn": "TerritorioDWKey",
+        "toTable": "DimTerritorio",
+        "toColumn": "TerritorioDWKey"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "800"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}

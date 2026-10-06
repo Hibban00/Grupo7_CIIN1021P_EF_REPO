@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Development" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="OLAP_AdventureWorksDW2014/OLAP_AdventureWorksDW2014.smproj" Type="6870e480-7721-4708-bfb8-9ae898aa21b3" Id="8ce414bb-95b2-4c99-9e03-51ba72086e22">
+    <Deploy />
+  </Project>
+</Solution>

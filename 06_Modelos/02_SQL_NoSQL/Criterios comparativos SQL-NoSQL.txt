@@ -1,0 +1,22 @@
+--Criterios
+--Criterio 1: Flexibilidad del esquema
+db.productos.find(
+    { costoEstandar: { $exists: false } },
+    {
+        _id: 0,
+        productKey: 1,
+        nombre: 1,
+        costoEstandar: 1,
+        precioLista: 1,
+        estado: 1
+    }
+)
+--Criterio 2: Modelo de datos
+db.productos.findOne(
+    { productKey: 212 },
+    { _id: 0 }
+)
+--Criterio 3: Consistencia e integridad de datos
+db.productos.findOne(
+    { productKey: 212 }
+)
